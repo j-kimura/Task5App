@@ -20,17 +20,17 @@ class ViewController: UIViewController {
 
     @IBAction private func divisionbutton(_ sender: Any) {
         guard let dividend = Double(dividendTextField.text!) else {
-            alert(message: "割られる数を入力して下さい")
+            presentAlert(message: "割られる数を入力して下さい")
             return
         }
 
         guard let divisor = Double(divisorTextField.text!) else {
-            alert(message: "割る数を入力して下さい")
+            presentAlert(message: "割る数を入力して下さい")
             return
         }
 
-        if divisorTextField.text! == "0" {
-            alert(message: "割る数には0を入力しないで下さい")
+        guard divisor != 0 else {
+            presentAlert(message: "割る数には0を入力しないで下さい")
             return
         }
 
@@ -38,14 +38,12 @@ class ViewController: UIViewController {
         resultLabel.text = String(result)
     }
 
-    private func alert(message: String) {
-            let title = "課題5"
-            let message = message
-            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+    private func presentAlert(message: String) {
+            let alert = UIAlertController(title: "課題5", message: message, preferredStyle: .alert)
 
-            let okLabel = UIAlertAction(title: "OK", style: .default, handler: nil)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(okAction)
 
-            alert.addAction(okLabel)
-            self.present(alert, animated: true, completion: nil)
+            present(alert, animated: true, completion: nil)
         }
     }
